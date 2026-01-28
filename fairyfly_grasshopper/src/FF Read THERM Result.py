@@ -44,7 +44,7 @@ Create Fairyfly Boundary.
 
 ghenv.Component.Name = 'FF Read THERM Result'
 ghenv.Component.NickName = 'ThermResult'
-ghenv.Component.Message = '1.9.3'
+ghenv.Component.Message = '1.9.4'
 ghenv.Component.Category = 'Fairyfly'
 ghenv.Component.SubCategory = '1 :: THERM'
 ghenv.Component.AdditionalHelpFromDocStrings = '2'
@@ -93,6 +93,9 @@ if all_required_inputs(ghenv.Component):
     # create the THMZResult object and check to be sure that it has been simulated
     result_obj = THMZResult(_thmz)
     study_mesh = result_obj.mesh
+    conversion = 0.001 / conversion_to_meters()
+    shape_geo = result_obj.shape_faces
+    shape_geo = [f.scale(conversion) for f in shape_geo]
     if study_mesh is None:
         msg = 'No mesh was found within the THMZ file.\nMake sure that the THMZ ' \
             'file has been successfully simulated in THERM.'
@@ -101,11 +104,7 @@ if all_required_inputs(ghenv.Component):
 
     else:
         # scale the mesh to the current Rhino model units
-        conversion = 0.001 / conversion_to_meters()
         study_mesh = study_mesh.scale(conversion)
-        shape_geo = result_obj.shape_faces
-        shape_geo = [f.scale(conversion) for f in shape_geo]
-
         # get the results from the THMZ file
         data_attr = DATA_TYPES[str(_data_type_).lower()]
         results = getattr(result_obj, data_attr)
@@ -157,10 +156,10 @@ if all_required_inputs(ghenv.Component):
             vis_set.add_geometry(con_outline)
 
         # create the visual outputs
-        shape_geo = [from_face3d(f) for f in shape_geo]
         points = [from_point3d(pt) for pt in study_mesh.vertices]
         mesh = from_mesh3d(study_mesh)
 
-    # hide the points from the scene
+    # hide the points and shapes from the scene
+    shape_geo = [from_face3d(f) for f in shape_geo]
     hide_output(ghenv.Component, 1)
     hide_output(ghenv.Component, 2)
