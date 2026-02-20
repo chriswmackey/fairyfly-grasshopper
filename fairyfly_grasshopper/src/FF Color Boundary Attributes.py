@@ -1,7 +1,7 @@
 # Fairyfly: A Plugin for Environmental Analysis (GPL)
 # This file is part of Fairyfly.
 #
-# Copyright (c) 2025, Ladybug Tools.
+# Copyright (c) 2026, Ladybug Tools.
 # You should have received a copy of the GNU Affero General Public License
 # along with Fairyfly; If not, see <http://www.gnu.org/licenses/>.
 # 
@@ -40,7 +40,7 @@ different boundaries.
 
 ghenv.Component.Name = 'FF Color Boundary Attributes'
 ghenv.Component.NickName = 'ColorBoundaryAttr'
-ghenv.Component.Message = '1.9.2'
+ghenv.Component.Message = '1.10.0'
 ghenv.Component.Category = 'Fairyfly'
 ghenv.Component.SubCategory = '0 :: Create'
 ghenv.Component.AdditionalHelpFromDocStrings = '3'
